@@ -24,17 +24,6 @@ export const asyncRouteList: RouteRecordRaw[] = [...routeModuleList];
 
 // constant routes
 const constantRouteList: RouteRecordRaw[] = [
-  // login
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@pages/login/Login.vue'),
-    meta: {
-      title: '登录',
-      noAuth: true,
-      hide: true
-    }
-  },
   {
     path: '/',
     name: 'Root',
@@ -47,7 +36,7 @@ const constantRouteList: RouteRecordRaw[] = [
 ];
 
 // route
-const routes = [...constantRouteList, RedirectRoute];
+const routes = [...constantRouteList, ...asyncRouteList, RedirectRoute];
 
 const router = createRouter({
   history: createWebHistory(),
@@ -57,8 +46,6 @@ const router = createRouter({
 
 export function setupRouter(app: App) {
   app.use(router);
-  // create router guard
-  createRouterGuards(router);
 }
 
 export default router;

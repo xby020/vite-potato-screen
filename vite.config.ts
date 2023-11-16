@@ -79,6 +79,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       open: true
     },
     server: {
+      host: true,
       port: Number(env.VITE_PORT) || 14514,
       proxy: {
         '/api/v1': {

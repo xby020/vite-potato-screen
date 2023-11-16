@@ -1,4 +1,5 @@
-import { LowSync, LocalStorage } from 'lowdb';
+import { LowSync } from 'lowdb';
+import {LocalStorage} from 'lowdb/browser';
 import cookies from '../cookies';
 import lodash from 'lodash';
 
@@ -17,7 +18,7 @@ class LowSyncWithLodash<T> extends LowSync<T> {
 }
 
 const adapter = new LocalStorage<Database>('db');
-const db = new LowSyncWithLodash(adapter);
+const db = new LowSyncWithLodash(adapter, {});
 
 db.read();
 db.data = db.data || {};
@@ -29,7 +30,7 @@ export function pathInit({
   path = '',
   user = false,
   validator = (value: any) => true,
-  defaultValue = ''
+  defaultValue = '',
 }: {
   path?: string;
   user?: boolean;
@@ -64,7 +65,7 @@ export function dbSet({ path = '', user = false, value = '' }: DatabaseParams) {
 export function dbGet<T = any>({
   path = '',
   user = false,
-  value = ''
+  value = '',
 }: DatabaseParams) {
   const currentPath = pathInit({ path, user, defaultValue: value });
   const data: T = db.chain.get(currentPath).value();
